@@ -29,12 +29,12 @@ body {
 .add-items {
     margin-bottom: 1.5rem;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
 
 .add-items .todo-list-input {
     flex: 1;
-    margin-right: 0.5rem; /* 인풋과 버튼 사이의 간격 추가 */
+    margin-right: 0.5rem;
     padding: 0.75rem 1rem;
     border: 1px solid #ced4da;
     border-radius: 0.375rem;
@@ -42,11 +42,22 @@ body {
     font-size: 1rem;
 }
 
-.add-items .todo-list-add-btn {
+.add-items .add,
+.add-items .delete-selected {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     border-radius: 0.375rem;
     border: none;
+}
+
+.add-items .add {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.add-items .delete-selected {
+    background-color: #dc3545;
+    color: #fff;
 }
 
 .list-wrapper {
@@ -104,4 +115,47 @@ body {
     color: #6c757d;
     margin-left: 1rem;
     white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .card .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .add-items {
+        flex-direction: column;
+    }
+
+    .add-items .todo-list-input {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .add-items .add,
+    .add-items .delete-selected {
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .list-wrapper {
+        max-height: 50vh;
+    }
+
+    .todo-list li {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .todo-list li .form-check-label {
+        margin-bottom: 0.5rem;
+    }
+
+    .todo-list li .remove {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
 }
