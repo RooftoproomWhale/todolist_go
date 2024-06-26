@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"strconv"
 	"testing"
 	"todolist_go/model"
@@ -14,8 +15,9 @@ import (
 )
 
 func TestTodos(t *testing.T) {
+	os.Remove("./test.db")
 	assert := assert.New(t)
-	ts := httptest.NewServer(MakeWebHandler())
+	ts := httptest.NewServer(MakeNewHandler("./test.db"))
 	defer ts.Close()
 
 	// add testing - first data
