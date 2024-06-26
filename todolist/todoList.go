@@ -7,6 +7,7 @@ import (
 	"github.com/urfave/negroni"
 	"log"
 	"net/http"
+	"os"
 	"sort"
 	"strconv"
 )
@@ -112,7 +113,8 @@ func main() {
 	n.UseHandler(m)
 
 	log.Println("Started App")
-	err := http.ListenAndServe(":3000", n)
+	port := os.Getenv("PORT")
+	err := http.ListenAndServe(":"+port, n)
 	if err != nil {
 		panic(err)
 	}
