@@ -28,7 +28,12 @@ func GetTodos() []*Todo {
 
 func AddTodo(name string) *Todo {
 	id := len(todoMap) + 1
-	todo := &Todo{id, name, false, time.Now()}
+	loc, err := time.LoadLocation("Asia/Seoul")
+	if err != nil {
+		panic(err)
+	}
+	now := time.Now().In(loc)
+	todo := &Todo{id, name, false, now}
 	todoMap[id] = todo
 	log.Println("add Todo success")
 	return todo
