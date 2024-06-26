@@ -1,1 +1,1 @@
-web: bin/todos
+web: bin/todolist_go

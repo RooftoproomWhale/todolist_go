@@ -35,7 +35,6 @@ func TestTodos(t *testing.T) {
 	assert.NoError(err)
 	assert.Equal(http.StatusCreated, resp.StatusCode)
 
-	// todo = new(Todo)
 	err = json.NewDecoder(resp.Body).Decode(&todo)
 	assert.NoError(err)
 	assert.Equal(todo.Name, "Test todo2")
@@ -64,7 +63,6 @@ func TestTodos(t *testing.T) {
 	assert.NoError(err)
 	assert.Equal(http.StatusOK, resp.StatusCode)
 
-	// todos := []*Todo{}
 	err = json.NewDecoder(resp.Body).Decode(&todos)
 	assert.NoError(err)
 	assert.Equal(len(todos), 2)
@@ -83,7 +81,6 @@ func TestTodos(t *testing.T) {
 	assert.NoError(err)
 	assert.Equal(http.StatusOK, resp.StatusCode)
 
-	// todos := []*Todo{}
 	err = json.NewDecoder(resp.Body).Decode(&todos)
 	assert.NoError(err)
 	assert.Equal(len(todos), 1)
