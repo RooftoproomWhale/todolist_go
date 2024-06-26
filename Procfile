@@ -1,1 +1,1 @@
-web: bin/todoList
+web: bin/todos
