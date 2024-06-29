@@ -81,6 +81,8 @@ func googleAuthCallback(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	log.Println(userInfo)
 	// Set some session values.
 	session.Values["id"] = userInfo.ID
 	session.Values["username"] = userInfo.NAME
