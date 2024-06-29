@@ -1,15 +1,12 @@
 package model
 
-import (
-	"log"
-	"time"
-)
+import "time"
 
 type memoryHandler struct {
 	todoMap map[int]*Todo
 }
 
-func (m *memoryHandler) GetTodos() []*Todo {
+func (m *memoryHandler) GetTodos(sessionId string) []*Todo {
 	list := []*Todo{}
 	for _, v := range m.todoMap {
 		list = append(list, v)
@@ -17,11 +14,10 @@ func (m *memoryHandler) GetTodos() []*Todo {
 	return list
 }
 
-func (m *memoryHandler) AddTodo(name string) *Todo {
+func (m *memoryHandler) AddTodo(sessionId string, name string) *Todo {
 	id := len(m.todoMap) + 1
 	todo := &Todo{id, name, false, time.Now()}
 	m.todoMap[id] = todo
-	log.Println("add Todo success")
 	return todo
 }
 
