@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/urfave/negroni"
 	"log"
 	"net/http"
 	"os"
@@ -17,12 +16,12 @@ func main() {
 	}
 	defer m.Close()
 
-	n := negroni.Classic()
-	n.UseHandler(m)
+	//n := negroni.Classic()
+	//n.UseHandler(m)
 
 	log.Println("Started App")
 	port := os.Getenv("PORT")
-	err := http.ListenAndServe(":"+port, n)
+	err := http.ListenAndServe(":"+port, m)
 	if err != nil {
 		panic(err)
 	}
