@@ -18,6 +18,7 @@ import (
 
 type GoogleUserId struct {
 	ID            string `json:"id"`
+	NAME          string `json:"name"`
 	Email         string `json:"email"`
 	VerifiedEmail bool   `json:"verified_email"`
 	Picture       string `json:"picture"`
@@ -82,6 +83,7 @@ func googleAuthCallback(w http.ResponseWriter, r *http.Request) {
 	}
 	// Set some session values.
 	session.Values["id"] = userInfo.ID
+	session.Values["username"] = userInfo.NAME
 	// Save it before we write to the response/return from the handler.
 	err = session.Save(r, w)
 	if err != nil {

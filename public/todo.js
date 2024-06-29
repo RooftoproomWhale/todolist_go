@@ -100,7 +100,7 @@
         // 시간순 정렬 버튼
         $('#sort-time').on('click', function() {
             sortItems(function(a, b) {
-                return new Date($(a).find('.createdAt').text()) - new Date($(b).find('.createdAt').text());
+                return new Date($(a).find('.created_at').text()) - new Date($(b).find('.created_at').text());
             });
         });
 
