@@ -35,7 +35,7 @@ func (s *sqliteHandler) AddTodo(name string, sessionId string) *Todo {
 		panic(err)
 	}
 
-	result, err := stmt.Exec(name, false)
+	result, err := stmt.Exec(sessionId, name, false)
 	if err != nil {
 		panic(err)
 	}
