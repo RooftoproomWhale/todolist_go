@@ -21,7 +21,7 @@ type AppHandler struct {
 	db model.DBHandler
 }
 
-func getSessionID(r *http.Request) string {
+var getSessionID = func(r *http.Request) string {
 	session, err := store.Get(r, "session")
 	if err != nil {
 		log.Println(err.Error())
@@ -40,14 +40,15 @@ func (a *AppHandler) indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *AppHandler) getTodoListHandler(w http.ResponseWriter, r *http.Request) {
-
-	list := a.db.GetTodos()
+	sessionsId := getSessionID(r)
+	list := a.db.GetTodos(sessionsId)
 	rd.JSON(w, http.StatusOK, list)
 }
 
 func (a *AppHandler) addTodoHandler(w http.ResponseWriter, r *http.Request) {
+	sessionsId := getSessionID(r)
 	name := r.FormValue("name")
-	todo := a.db.AddTodo(name)
+	todo := a.db.AddTodo(name, sessionsId)
 	rd.JSON(w, http.StatusCreated, todo)
 }
 
@@ -83,7 +84,7 @@ func (a *AppHandler) Close() {
 }
 
 func CheckSignin(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	if strings.Contains(r.URL.Path, "/signin.html") || strings.Contains(r.URL.Path, "/auth") {
+	if strings.Contains(r.URL.Path, "/signin") || strings.Contains(r.URL.Path, "/auth") {
 		next(rw, r)
 		return
 	}
