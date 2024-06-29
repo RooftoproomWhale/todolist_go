@@ -14,7 +14,7 @@ type sqliteHandler struct {
 func (s *sqliteHandler) GetTodos(sessionId string) []*Todo {
 	todos := []*Todo{}
 	sqlString := "SELECT id, name, completed, createdAt From todos WHERE sessionId = ?"
-	rows, err := s.db.Query(sqlString)
+	rows, err := s.db.Query(sqlString, sessionId)
 	if err != nil {
 		panic(err)
 	}
