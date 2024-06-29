@@ -88,5 +88,35 @@
             $('.delete-selected').toggleClass('d-none', !anyChecked); // 체크된 항목이 있으면 선택 삭제 버튼 표시, 아니면 숨김
         }
 
+        // 정렬 함수
+        function sortItems(compareFunction) {
+            var items = $('.todo-list li').get();
+            items.sort(compareFunction);
+            $.each(items, function(idx, itm) {
+                todoListItem.append(itm); // 정렬된 순서로 다시 추가
+            });
+        }
+
+        // 시간순 정렬 버튼
+        $('#sort-time').on('click', function() {
+            sortItems(function(a, b) {
+                return new Date($(a).find('.createdAt').text()) - new Date($(b).find('.createdAt').text());
+            });
+        });
+
+        // 가나다순 정렬 버튼
+        $('#sort-alpha').on('click', function() {
+            sortItems(function(a, b) {
+                return $(a).find('.form-check-label').text().localeCompare($(b).find('.form-check-label').text());
+            });
+        });
+
+        // 페이지가 로드될 때 사용자 정보를 불러와서 설정
+        $(document).ready(function() {
+            $.get("/auth/userinfo", function(data) {
+                $("#username").text(data.username);
+            });
+        });
+
     });
 })(jQuery);

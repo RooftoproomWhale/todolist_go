@@ -79,6 +79,29 @@ func (a *AppHandler) completeTodoHandler(w http.ResponseWriter, r *http.Request)
 	}
 }
 
+type UserInfo struct {
+	Username string `json:"username"`
+}
+
+func (a *AppHandler) getUserInfoHandler(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "session")
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	val := session.Values["username"]
+	if val == nil {
+		rd.JSON(w, http.StatusUnauthorized, nil)
+		return
+	}
+	username := val.(string)
+
+	userInfo := UserInfo{Username: username}
+	rd.JSON(w, http.StatusOK, userInfo)
+}
+
 func (a *AppHandler) Close() {
 	a.db.Close()
 }
@@ -115,6 +138,7 @@ func MakeNewHandler(filepath string) *AppHandler {
 	mux.HandleFunc("/complete-todo/{id:[0-9]+}", a.completeTodoHandler).Methods("GET")
 	mux.HandleFunc("/auth/google/login", googleLoginHandler)
 	mux.HandleFunc("/auth/google/callback", googleAuthCallback)
+	mux.HandleFunc("/auth/userinfo", a.getUserInfoHandler).Methods("GET")
 
 	return a
 }

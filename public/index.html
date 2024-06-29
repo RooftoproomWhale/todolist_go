@@ -11,6 +11,11 @@
 <body>
 <div class="page-content page-container" id="page-content">
     <div class="padding">
+        <div class="d-flex justify-content-end mt-3">
+            <div id="user-info" class="text-right">
+                <span id="username" class="font-weight-bold"></span>님, 환영합니다!
+            </div>
+        </div>
         <div class="row container d-flex justify-content-between align-items-center">
             <div class="col-lg-8">
                 <div class="card px-3">
@@ -22,6 +27,10 @@
                             <button class="delete-selected btn btn-danger ml-2 font-weight-bold d-none"><i class="fa fa-trash"></i> 선택 삭제</button>
                         </div>
                         <div class="list-wrapper">
+                            <div class="d-flex justify-content-end mb-2">
+                                <button class="btn btn-secondary mr-2" id="sort-time">시간순</button>
+                                <button class="btn btn-secondary" id="sort-alpha">가나다순</button>
+                            </div>
                             <ul class="todo-list d-flex flex-column-reverse">
                                 <!-- 할 일 항목이 여기에 추가됩니다 -->
                             </ul>
