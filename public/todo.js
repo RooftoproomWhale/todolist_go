@@ -39,7 +39,16 @@
                 minute: 'numeric'
             });
 
-            var listItem = $('<li id="' + item.id + '" class="' + (item.completed ? 'completed' : '') + '"><div class="d-flex justify-content-between align-items-center"><div class="form-check"><label class="form-check-label"><input class="checkbox" type="checkbox"' + (item.completed ? ' checked' : '') + ' />' + item.name + '</label></div><span class="createdAt text-muted ml-auto">' + formattedDate + '</span></div></li>');
+            var listItem = $('<li id="' + item.id + '" class="' + (item.completed ? 'completed' : '') + '"> \
+                    <div class="d-flex justify-content-between align-items-center"> \
+                        <div class="form-check"> \
+                            <label class="form-check-label"> \
+                                <input class="checkbox" type="checkbox"' + (item.completed ? ' checked' : '') + ' />' + item.name + ' \
+                            </label> \
+                        </div> \
+                        <span class="ml-auto text-muted created-at">' + formattedDate + '</span> \
+                    </div> \
+                </li>');
 
             // 리스트 최상단에 항목 추가
             todoListItem.prepend(listItem);
@@ -114,7 +123,7 @@
             var sortedItems = todoListItem.children('li').get().sort(function(a, b) {
                 var dateA = parseDate($(a).find('.created-at').text());
                 var dateB = parseDate($(b).find('.created-at').text());
-                return dateA - dateB;
+                return dateB - dateA;
             });
             $.each(sortedItems, function(idx, item) {
                 todoListItem.append(item);
@@ -126,7 +135,7 @@
             var sortedItems = todoListItem.children('li').get().sort(function(a, b) {
                 var nameA = $(a).find('.form-check-label').text().toUpperCase();
                 var nameB = $(b).find('.form-check-label').text().toUpperCase();
-                return nameA.localeCompare(nameB);
+                return nameB.localeCompare(nameA);
             });
             $.each(sortedItems, function(idx, item) {
                 todoListItem.append(item);
