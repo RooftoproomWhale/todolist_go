@@ -46,7 +46,7 @@
                                 <input class="checkbox" type="checkbox"' + (item.completed ? ' checked' : '') + ' />' + item.name + ' \
                             </label> \
                         </div> \
-                        <span class="ml-auto text-muted created-at">' + formattedDate + '</span> \
+                        <span class="text-muted created-at">' + formattedDate + '</span> \
                     </div> \
                 </li>');
 
@@ -102,20 +102,29 @@
         }
 
         function parseDate(dateStr) {
-            var parts = dateStr.match(/(\d{4})\.\s(\d{2})\.\s(\d{2})\.\s(오전|오후)\s(\d{2}):(\d{2}):(\d{2})/);
+            // 정규식 패턴 수정: 2024년 6월 30일 오후 12:18 에서 시간을 24시간제로 변환
+            var parts = dateStr.match(/(\d{4})년\s(\d{1,2})월\s(\d{1,2})일\s(오전|오후)\s(\d{1,2}):(\d{2})/);
+
+            if (!parts) {
+                return null; // 매칭되는 부분이 없으면 null 반환
+            }
+
             var year = parseInt(parts[1], 10);
             var month = parseInt(parts[2], 10) - 1; // 월은 0부터 시작합니다.
             var day = parseInt(parts[3], 10);
             var hour = parseInt(parts[5], 10);
             var minute = parseInt(parts[6], 10);
-            var second = parseInt(parts[7], 10);
+
+            // 오전/오후에 따라 시간을 24시간제로 변환
             if (parts[4] === '오후' && hour < 12) {
                 hour += 12;
             }
             if (parts[4] === '오전' && hour === 12) {
                 hour = 0;
             }
-            return new Date(year, month, day, hour, minute, second);
+
+            // Date 객체를 생성하여 반환
+            return new Date(year, month, day, hour, minute);
         }
 
         // 시간순 정렬
