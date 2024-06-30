@@ -70,18 +70,34 @@
             });
         });
 
+        function parseDate(dateStr) {
+            var parts = dateStr.match(/(\d{4})\.\s(\d{2})\.\s(\d{2})\.\s(오전|오후)\s(\d{2}):(\d{2}):(\d{2})/);
+            var year = parseInt(parts[1], 10);
+            var month = parseInt(parts[2], 10) - 1; // 월은 0부터 시작합니다.
+            var day = parseInt(parts[3], 10);
+            var hour = parseInt(parts[5], 10);
+            var minute = parseInt(parts[6], 10);
+            var second = parseInt(parts[7], 10);
+            if (parts[4] === '오후' && hour < 12) {
+                hour += 12;
+            }
+            if (parts[4] === '오전' && hour === 12) {
+                hour = 0;
+            }
+            return new Date(year, month, day, hour, minute, second);
+        }
+
         // 시간순 정렬
         $('#sort-time').on('click', function() {
             var sortedItems = todoListItem.children('li').get().sort(function(a, b) {
-                var dateA = new Date($(a).find('.created-at').text());
-                var dateB = new Date($(b).find('.created-at').text());
+                var dateA = parseDate($(a).find('.created-at').text());
+                var dateB = parseDate($(b).find('.created-at').text());
                 return dateA - dateB;
             });
             $.each(sortedItems, function(idx, item) {
                 todoListItem.append(item);
             });
         });
-
         // 가나다순 정렬
         $('#sort-alpha').on('click', function() {
             var sortedItems = todoListItem.children('li').get().sort(function(a, b) {
@@ -91,6 +107,13 @@
             });
             $.each(sortedItems, function(idx, item) {
                 todoListItem.append(item);
+            });
+        });
+
+        // 페이지가 로드될 때 사용자 정보를 불러와서 설정
+        $(document).ready(function() {
+            $.get("/auth/userinfo", function(data) {
+                $("#username").text(data.username);
             });
         });
     });
