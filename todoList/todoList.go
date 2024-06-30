@@ -91,7 +91,7 @@ func (a *AppHandler) getUserInfoHandler(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	val := session.Values["username"]
+	val := session.Values["given_name"]
 	if val == nil {
 		rd.JSON(w, http.StatusUnauthorized, nil)
 		return
