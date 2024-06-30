@@ -117,6 +117,10 @@ body {
     white-space: nowrap;
 }
 
+.dropdown-toggle::after {
+    margin-left: 0.5rem;
+}
+
 @media (max-width: 768px) {
     .card .card-body {
         padding: 1.5rem;

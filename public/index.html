@@ -22,14 +22,23 @@
                     <div class="card-body">
                         <h4 class="card-title">나의 할 일 목록</h4>
                         <div class="add-items d-flex mb-3">
-                            <input type="text" class="form-control todo-list-input" placeholder="오늘 무엇을 해야하나요?">
+                            <label>
+                                <input type="text" class="form-control todo-list-input" placeholder="오늘 무엇을 해야하나요?">
+                            </label>
                             <button class="add btn btn-primary ml-2 font-weight-bold"><i class="fa fa-plus"></i> 추가</button>
                             <button class="delete-selected btn btn-danger ml-2 font-weight-bold d-none"><i class="fa fa-trash"></i> 선택 삭제</button>
                         </div>
                         <div class="list-wrapper">
                             <div class="d-flex justify-content-end mb-2">
-                                <button class="btn btn-secondary mr-2" id="sort-time">시간순</button>
-                                <button class="btn btn-secondary" id="sort-alpha">가나다순</button>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-sort"></i> 정렬
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="sortDropdown">
+                                        <a class="dropdown-item" href="#" id="sort-time">시간순</a>
+                                        <a class="dropdown-item" href="#" id="sort-alpha">가나다순</a>
+                                    </div>
+                                </div>
                             </div>
                             <ul class="todo-list d-flex flex-column-reverse">
                                 <!-- 할 일 항목이 여기에 추가됩니다 -->
@@ -42,7 +51,7 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-J6qa4849blE2+poTDrgNfG6XlZtim2so+Kl1iov6i+Gp2UnzRKAQ+erWsCjz4eM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="todo.js"></script>
