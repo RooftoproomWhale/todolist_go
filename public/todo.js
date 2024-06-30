@@ -132,7 +132,7 @@
             var sortedItems = todoListItem.children('li').get().sort(function(a, b) {
                 var dateA = parseDate($(a).find('.created-at').text());
                 var dateB = parseDate($(b).find('.created-at').text());
-                return dateB - dateA;
+                return dateA - dateB;
             });
             $.each(sortedItems, function(idx, item) {
                 todoListItem.append(item);
